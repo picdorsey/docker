@@ -1,0 +1,26 @@
+version: '2'
+services:
+  app:
+    image: picdorsey/app
+    volumes:
+     - .:/var/www/html
+    networks:
+     - sdnet
+  node:
+    image: picdorsey/node
+    volumes:
+     - .:/var/www/html
+    networks:
+     - sdnet
+  mysql:
+    image: mysql:5.7
+    volumes:
+     - mysqldata:/var/lib/mysql
+    networks:
+     - sdnet
+  redis:
+    image: redis:alpine
+    volumes:
+     - redisdata:/data
+    networks:
+     - sdnet
