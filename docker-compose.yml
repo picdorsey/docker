@@ -1,0 +1,32 @@
+version: '2'
+services:
+  app:
+    image: picdorsey/app
+    volumes:
+     - .:/var/www/html
+    networks:
+     - sdnet
+    ports:
+     - 80:80
+    environment:
+      APP_ENV: 'development'
+      XDEBUG_HOST: ''
+  mysql:
+    image: mysql:5.7
+    volumes:
+     - mysqldata:/var/lib/mysql
+    networks:
+     - sdnet
+    ports:
+     - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "app"
+      MYSQL_USER: "docker"
+      MYSQL_PASSWORD: "secret"
+networks:
+  sdnet:
+    driver: "bridge"
+volumes:
+  mysqldata:
+    driver: "local"
